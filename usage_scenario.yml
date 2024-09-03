@@ -1,0 +1,54 @@
+---
+name: Test-discovery-first
+author: Raines
+version: 1
+description: test process discovery algorithms
+
+services:
+  minimum_self_distance_container:
+    build:
+      context: .
+  bpmn_inductive_container:
+    build:
+      context: .
+  dfg_container:
+    build:
+      context: .
+  heuristics_net_container:
+    build:
+      context: .
+  log_skeleton_container:
+    build:
+      context: .
+
+flow:
+  - name: minimum_self_distance
+    container: minimum_self_distance_container
+    commands:
+      - type: console
+        command: python /app/test_discovery.py minimum_self_distance
+        note: Running tminimum self distance
+  - name: bpmn_inductive
+    container: bpmn_inductive_container
+    commands:
+      - type: console
+        command: python /app/test_discovery.py bpmn_inductive
+        note: Running discover bpmn inductive
+  - name: dfg
+      container: dfg_container
+      commands:
+        - type: console
+          command: python /app/test_discovery.py dfg
+          note: Running discover dfg
+  - name: heuristics_net
+      container: bpmn_inductive_container
+      commands:
+        - type: console
+          command: python /app/test_discovery.py heuristics_net_container
+          note: Running discover heuristics net
+  - name: log_skeleton
+      container: log_skeleton_container
+      commands:
+        - type: console
+          command: python /app/test_discovery.py log_skeleton
+          note: Running discover log skeleton
